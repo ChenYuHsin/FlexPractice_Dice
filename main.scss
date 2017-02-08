@@ -1,0 +1,92 @@
+html {
+  height: 100%;
+}
+
+body {
+  background: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+// 骰子的樣式 CSS設定
+$dice-size: 100px;
+.dice {
+  width: $dice-size;
+  height: $dice-size;
+  background: #e7e7e7;
+  box-shadow: inset 0 5px white, inset 0 -5px #bbb, inset 5px 0 #d7d7d7, inset -5px 0 #d7d7d7;
+  border-radius: 15%;
+  margin: 20px;
+  padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+// 黑點的樣式 CSS設定
+$dot-size: ($dice-size * 33/100)-10;
+.dot {
+  background: #ff4040;
+  width: $dot-size;
+  height: $dot-size;
+  border-radius: 50%;
+  margin: 5px;
+  box-shadow: inset 0 3px #ff0000, inset 0 -3px #ff9f9f;
+}
+
+// 以下為各點數的黑點擺放位置 CSS設定
+.one {
+  justify-content: center;
+  align-items: center;
+}
+
+.two {
+  justify-content: space-between;
+  .dot:last-child {
+    align-self: flex-end;
+  }
+}
+
+.three {
+  justify-content: space-between;
+  .dot:nth-child(2) {
+    align-self: center;
+  }
+  .dot:last-child {
+    align-self: flex-end;
+  }
+}
+
+// 設定骰子內黑點超過兩行的樣式設定
+// .inner 既是上一層 dice容器的 flex子元素，自己也是一個 flex容器
+.inner {
+  // 設定 .inner寬度跟骰子一樣，不然身為 flex子元素的它寬度會由容大小決定。
+  flex-basis: $dice-size;
+  
+  display: flex;
+  justify-content: space-between;
+
+  // 在下層的 .inner要跑到 dice容器底端。
+  &.down {
+    align-self: flex-end;
+  }
+  
+  //在中間的要跑到 dice容器中間
+  &.mid {
+    align-self: center;
+  }
+}
+
+.five>.mid {
+  justify-content: center;
+}
+
+.six>.mid {
+  justify-content: space-between;
+}
